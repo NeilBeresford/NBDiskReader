@@ -18,7 +18,7 @@
 /** @brief      Main function that runs the tests.
                 This function serves as the entry point for the test suite.
                 It initializes the test environment and runs all defined tests.
-    @ingroup    ModernCppTests
+    @ingroup    NBDiskReader
     @param[in]  argc  The number of command line arguments.
     @param[in]  argv  The command line arguments.
     @return     Returns 0 on success, or a non-zero value on failure.
