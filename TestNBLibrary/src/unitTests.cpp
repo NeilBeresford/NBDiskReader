@@ -15,6 +15,7 @@
 
 // doctest unit testing framework setup
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+#include "../../NBLibrary/inc/Modules/cFile.h"
 #include "../../doctest/doctest/doctest.h"
 
 //-----------------------------------------------------------------------------

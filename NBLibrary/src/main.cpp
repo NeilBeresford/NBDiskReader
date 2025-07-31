@@ -28,7 +28,7 @@ int main( int argc, char** argv )
     // Print a message indicating that the tests are starting
     std::cout << "Running tests..." << std::endl;
 
-   // Print a message indicating that all tests have passed
+    // Print a message indicating that all tests have passed
     std::cout << "All tests passed!" << std::endl;
 
     return 0;
