@@ -252,7 +252,7 @@ void read_d64_directory( const std::string& filename )
     @param      argv    - The command line arguments.
     @return     uint32_t - Returns 0 on success, 1 on failure.
 */
-uint32_t main( uint32_t argc, char** argv )
+int main( int argc, char** argv )
 {
     /*
         The main function is the entry point of the application.

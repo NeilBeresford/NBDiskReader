@@ -9,7 +9,7 @@
 // Libraries
 // ----------------------------------------------------------------------------
 
-#include "cDiskCore.h"
+#include "../../../inc/Modules/DiskImages/cDiskCore.h"
 
 //-----------------------------------------------------------------------------
 // Class functionality
@@ -20,7 +20,7 @@
     @details    Initializes member variables to default values.
     @ingroup    NBLibraryFileHandling
 */
-cDiskCore::DiskCore()
+DiskCore::DiskCore()
 {
     // initialize member variables
     DiskTitle   = "NBDisk";

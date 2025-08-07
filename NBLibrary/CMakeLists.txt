@@ -9,12 +9,12 @@ project(NBLibraryTests VERSION 1.0.0 LANGUAGES CXX)
 project(NBLibrary)
 
 # Add files
-file(GLOB_RECURSE SOURCES "src/*.cpp" "inc/*.h" "src/modules/*.cpp" "inc/modules/*.h")
+file(GLOB_RECURSE SOURCES "src/*.cpp" "inc/*.h")
 file(GLOB_RECURSE LIBSOURCES "inc/*.h" "src/modules/*.cpp" "inc/modules/*.h")
 
 # Add the executable
-add_executable(NBLibraryTests ${SOURCES} "src/Modules/cDiskCore.cpp" "inc/Modules/cDiskCore.h")
-add_library(NBLibrary ${LIBSOURCES} "src/Modules/cDiskCore.cpp" "inc/Modules/cDiskCore.h")
+add_executable(NBLibraryTests ${SOURCES} )
+add_library(NBLibrary ${LIBSOURCES} )
 
 # targets for the executable
 target_include_directories(NBLibraryTests PRIVATE "inc" "inc/Modules" )

@@ -1,9 +1,8 @@
-#pragma once
 /**
-@file       cDiskCore.h
-@brief      This file contains the adstract class for the different Disk Handling.
-@defgroup   NBLibraryFileHandling File Handling
-@copyright  Copyright (c) 2025, Neil Beresford
+    @file       cDiskCore.h
+    @brief      This file contains the adstract class for the different Disk Handling.
+    @defgroup   NBLibraryFileHandling File Handling
+    @copyright  Copyright (c) 2025, Neil Beresford
 */
 
 //-----------------------------------------------------------------------------
@@ -26,7 +25,7 @@
 class DiskCore
 {
   public:
-    DiskCore()          = default;
+    DiskCore();
     virtual ~DiskCore() = default;
 
     // Prevent copying
