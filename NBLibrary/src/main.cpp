@@ -1,8 +1,10 @@
 /**
     @file       main.cpp
-    @defgroup   ModernCppTests Modern C++ Tests
+    @defgroup   NBLibraryTest NBLibrary Test Functionalty for the NBLibrary project
+                Please note this is not the unit test project, but for development
+                of the NBLibrary functionality.
     @brief      Main file for running tests using the doctest framework.
-    @copyright   Copyright (c) 2025, Neil Beresford
+    @copyright  Copyright (c) 2025, Neil Beresford
 */
 
 //-----------------------------------------------------------------------------
@@ -26,6 +28,10 @@
 //-----------------------------------------------------------------------------
 //  External Functionality
 // ----------------------------------------------------------------------------
+
+// General constants
+constexpr uint32_t MAIN_RET_SUCCESS = 0; //!< The return code for a successful operation
+constexpr uint32_t MAIN_RET_FAILURE = 1; //!< The return code for a failed operation
 
 // Constants for D64 format
 constexpr uint32_t SECTOR_SIZE      = 256;         //!< Size of a D64 sector in bytes
@@ -101,6 +107,14 @@ DiskFileType disk_file_types[ 20 ] = {
 };
 
 // Calculate the offset in the file for a given track and sector
+
+/**
+@ingroup    NBLibraryTests
+@brief      Calculate the offset in the D64 file for a given track and sector.
+@param      track   - The track number (1-based).
+@param      sector - The sector number (0-based).
+@return     size_t - The offset in bytes from the start of the D64 file.
+*/
 size_t d64_offset( uint32_t track, uint32_t sector )
 {
     size_t offset = 0;
@@ -109,6 +123,12 @@ size_t d64_offset( uint32_t track, uint32_t sector )
     return ( offset * SECTOR_SIZE );
 }
 
+/**
+@ingroup    NBLibraryTests
+@brief      Reads the directory of a D64 disk image file and prints the disk name and file entries.
+@param      filename - The name of the D64 file to read.
+@return     void - This function does not return a value.
+*/
 void read_d64_directory( const std::string& filename )
 {
     std::ifstream d64( filename, std::ios::binary );
@@ -120,10 +140,10 @@ void read_d64_directory( const std::string& filename )
 
     uint32_t track  = BAM_TRACK;
     uint32_t sector = BAM_SECTOR;
-
+    std::cout << "\nNBLibraryTests - Built " << __DATE__ << " " << __TIME__ << "\n\n";
     std::cout << "Disk File Name: " << filename << " opened\n";
 
-    while ( track != 0 )
+    while ( track != 0 && sector != 255 )
     {
         size_t offset = d64_offset( track, sector );
         d64.seekg( offset );
@@ -132,8 +152,15 @@ void read_d64_directory( const std::string& filename )
 
         if ( track == BAM_TRACK && sector == BAM_SECTOR )
         {
-
-            // The name of the disk, plus the sectors that have been used...
+            /**
+               BAM (Block Allocation Map) is located at track 18, sector 0
+                It contains information about the disk's usage, including the disk name and the sectors that have been used.
+                The BAM is structured as follows:
+                - The first 2 bytes are the track and sector of the next BAM.
+                - The next 2 bytes are the track and sector of the next directory.
+                - The next 140 bytes are the BAM entries for each track (35 tracks, 4 bytes per track).
+                - The next 16 bytes are the disk name, padded with 0xA0.
+            */
             std::string disk_name;
             for ( uint32_t i = 0; i < 16; ++i )
             {
@@ -143,7 +170,7 @@ void read_d64_directory( const std::string& filename )
                 disk_name += static_cast<char>( c );
             }
             std::cout << "Disk Name: " << disk_name << "\n";
-            std::cout << "Disk usage per track (35)\n";
+            std::cout << "Disk usage per track (35)\n\n";
 
             // now displaythe disk sector usage...
             // 140*8 sectors = 1120 sectors for a full disk
@@ -156,10 +183,23 @@ void read_d64_directory( const std::string& filename )
                 std::cout << "" << std::format( "{:02X} ", sector_data[ ( bamByte << 2 ) + 4 + 3 ] );
             }
             std::cout << "\n";
+            std::cout << "\n-----------------------------------------------\n";
+            std::cout << "         File Name Type    Size\n";
+            std::cout << "-----------------------------------------------\n";
         }
         // Next track/sector for directory
+        /*
+            Directory sectors are located at track 18, sector 1 onwards.
+            Each directory sector contains 8 entries, each entry is 32 bytes.
+            The first 2 bytes of each entry are the track and sector of the file.
+            The file type is in the 3rd byte, and the file name starts at the 6th byte.
+            The file size in sectors is in the last 2 bytes of the entry.
+        */
+
         track  = sector_data[ 0 ];
         sector = sector_data[ 1 ];
+        if ( track == 0 && sector == 255 )
+            break; // No more directory sectors
 
         offset = d64_offset( track, sector );
         d64.seekg( offset );
@@ -199,26 +239,51 @@ void read_d64_directory( const std::string& filename )
             uint32_t size_hi = sector_data[ entry_offset + 31 ];
             uint32_t size    = size_lo + ( size_hi << 8 );
 
-            std::cout << std::setw( 18 ) << std::left << name << std::setw( 7 ) << type << size << " blocks\n";
+            std::cout << std::setw( 18 ) << std::right << name << " " << std::left << std::setw( 7 ) << type << std::right << std::setw( 5 ) << size << std::left << " blocks\n";
         }
     }
+    std::cout << "-----------------------------------------------\n\n";
 }
 
+/**
+    @ingroup    NBLibraryTests
+    @brief      Basic application for development of the NB Library.
+    @param      argc    - The number of command line arguments.
+    @param      argv    - The command line arguments.
+    @return     uint32_t - Returns 0 on success, 1 on failure.
+*/
 uint32_t main( uint32_t argc, char** argv )
 {
+    /*
+        The main function is the entry point of the application.
+        It reads the command line arguments and calls the read_d64_directory function
+        to read the directory of a D64 disk image file.
+
+        TEST define is found at the top of this file.
+        If TEST is set to 1, it will read a hardcoded D64 file named "test.d64".
+        If TEST is set to 0, it will read the D64 file specified in the command line arguments.
+    */
+
 #if TEST == 1
+
     read_d64_directory( "test.d64" );
 
 #else
+
     if ( argc != 2 || ( argc >= 2 && argv[ 1 ] == "/?" ) )
     {
+        // Print usage information if no arguments are provided or if the first argument is "/?"
         std::cout << "D64 Directory Reader\n";
         std::cout << "Usage: " << argv[ 0 ] << " <d64_file>\n";
-        return 1;
+        return MAIN_RET_FAILURE;
     }
+
+    // print the D64 disk info and file directory
     read_d64_directory( argv[ 1 ] );
+
 #endif
-    return 0;
+
+    return MAIN_RET_SUCCESS;
 }
 //-----------------------------------------------------------------------------
 // End of main.cpp
