@@ -27,7 +27,8 @@ int main( int argc, char** argv )
 {
     // Print a message indicating that the tests are starting
     std::cout << "Shell, ready to terminate..." << std::endl;
-
+    std::cout << "Press any key to continue..." << std::endl;
+    std::cin.get();
     return 0;
 }
 

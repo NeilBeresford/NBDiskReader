@@ -274,6 +274,7 @@ int main( int argc, char** argv )
     {
         // Print usage information if no arguments are provided or if the first argument is "/?"
         std::cout << "D64 Directory Reader\n";
+        std::cout << "Terminating, needs a D64 disk image file to read.\n";
         std::cout << "Usage: " << argv[ 0 ] << " <d64_file>\n";
         return MAIN_RET_FAILURE;
     }
@@ -283,6 +284,8 @@ int main( int argc, char** argv )
 
 #endif
 
+    std::cout << "Press any key to exit...";
+    std::cin.get();
     return MAIN_RET_SUCCESS;
 }
 //-----------------------------------------------------------------------------

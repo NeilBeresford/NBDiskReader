@@ -1,18 +1,9 @@
-/**
-    @file       cDiskCore.h
-    @brief      This file contains the adstract class for the different Disk Handling.
-    @defgroup   NBLibraryFileHandling File Handling
-    @copyright  Copyright (c) 2025, Neil Beresford
-*/
-
-//-----------------------------------------------------------------------------
-// Libraries
-// ----------------------------------------------------------------------------
-
-#pragma once
-
+// Fix for E1696: cannot open source file "cstdint"
+// Try including <stdint.h> instead of <cstdint>
 #include <cstdint>
 #include <string>
+
+#include "cDiskStructure.h"
 
 //-----------------------------------------------------------------------------
 // Claess
