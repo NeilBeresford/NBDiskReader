@@ -41,8 +41,8 @@
 *.dwo
 
 .git
+.idea
 .vs
-.vscode
 build
 out
 doctest

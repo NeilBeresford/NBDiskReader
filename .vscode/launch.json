@@ -1,0 +1,51 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "cppvsdbg",
+            "request": "launch",
+            "name": "Debug NBLibraryTests",
+            "program": "${workspaceFolder}/build//NBLibrary/Debug/NBLibraryTests.exe",
+            "cwd": "${workspaceFolder}",
+            "preLaunchTask": "build"
+        },
+        {
+            "type": "cppvsdbg",
+            "request": "launch",
+            "name": "Debug NBDiskReader",
+            "program": "${workspaceFolder}/build//NBDiskReader/Debug/NBDiskReader.exe",
+            "cwd": "${workspaceFolder}",
+            "preLaunchTask": "build"
+        },
+        {
+            "type": "cppvsdbg",
+            "request": "launch",
+            "name": "Debug TestNBLibrary",
+            "program": "${workspaceFolder}/build/${input:buildConfig}/TestNBLibrary/TestNBLibrary.exe",
+            "cwd": "${workspaceFolder}",
+            "preLaunchTask": "build"
+        },
+        {
+            "type": "cppvsdbg",
+            "request": "launch",
+            "name": "Debug TestNBDiskReader",
+            "program": "${workspaceFolder}/build/${input:buildConfig}/TestNBDiskReader/TestGenTests.exe",
+            "cwd": "${workspaceFolder}",
+            "preLaunchTask": "build"
+        }
+    ],
+    "inputs": [
+        {
+            "type": "pickString",
+            "id": "buildConfig",
+            "description": "Select build configuration",
+            "options": [
+                "Debug",
+                "Release"
+            ]
+        }
+    ]
+}

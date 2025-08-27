@@ -1,0 +1,13 @@
+
+
+
+Notes for the development of NBLibrary
+
+1. Start the D64 disk image handler - for reading. This will also mean "DiskCore" will also be developed.
+2. Implement the D64 disk image writer.
+3. Implement the D64 disk image reader.
+4. Implement the D64 disk image editor.
+
+
+
+
