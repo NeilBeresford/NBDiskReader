@@ -1,5 +1,6 @@
-// Fix for E1696: cannot open source file "cstdint"
-// Try including <stdint.h> instead of <cstdint>
+
+#pragma once
+
 #include <cstdint>
 #include <string>
 
@@ -15,6 +16,7 @@
 */
 class DiskCore
 {
+
   public:
     DiskCore();
     virtual ~DiskCore() = default;
@@ -25,10 +27,12 @@ class DiskCore
     DiskCore( DiskCore&& )                 = delete;
     DiskCore& operator=( DiskCore&& )      = delete;
 
-    // Storage...
-    std::string DiskName;    //!< Name of the disk
-    std::string OutDiskName; //!< Output disk name
-    std::string DiskTitle;   //!< Title of the disk
+    // Data members
+    std::ifstream  DiskImageStream; //!< Stream for the disk image
+    DiskDescriptor Descriptor;      //!< Descriptor for the disk
+    std::string    DiskName;        //!< Name of the disk
+    std::string    OutDiskName;     //!< Output disk name
+    std::string    DiskTitle;       //!< Title of the disk
 
     // Core functions
     virtual bool open( const std::string& filename ) = 0;

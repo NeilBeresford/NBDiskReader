@@ -26,6 +26,9 @@ DiskCore::DiskCore()
     DiskTitle   = "NBDisk";
     DiskName    = "NBDisk.d64";
     OutDiskName = DiskName;
+
+    // define the descriptor
+    // DiskDescriptor.SetupDescriptor( DiskSize, TotalTracks, TrackSectorTable, BAMTrack, BAMSector );
 }
 
 //-----------------------------------------------------------------------------

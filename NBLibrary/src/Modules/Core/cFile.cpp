@@ -1,7 +1,7 @@
 /**
     @file       cFile.cpp
     @brief      This file contains file handling tests for the project.
-    @defgroup   ModernCppTests Modern C++ Tests
+    @defgroup   NBLibraryFileHandling File Handling
     @copyright  Copyright (c) 2025, Neil Beresford
 */
 
@@ -21,7 +21,7 @@
 // ----------------------------------------------------------------------------
 
 /**
-    @ingroup    ModernCppTests
+    @ingroup    NBLibraryFileHandling
     @brief      Opens a text file.
     @param      filename The name of the file to open.
     @return     True if the file was opened successfully, false otherwise.
@@ -72,8 +72,8 @@ bool TextFile::open( const std::string& filename )
 }
 
 /**
+    @ingroup    NBLibraryFileHandling
     @brief      Closes the text file.
-    @ingroup    ModernCppTests
     @return     void
 */
 void TextFile::close()
@@ -87,8 +87,8 @@ void TextFile::close()
 }
 
 /**
+    @ingroup    NBLibraryFileHandling
     @brief      Reads content from the text file.
-    @ingroup    ModernCppTests
     @param      content The string to store the read content.
     @return     True if reading was successful, false otherwise.
 */
@@ -99,8 +99,8 @@ bool TextFile::read( std::string& content )
 }
 
 /**
+    @ingroup    NBLibraryFileHandling
     @brief      Writes content to the text file.
-    @ingroup    ModernCppTests
     @param      content The string to write to the file.
     @return     True if writing was successful, false otherwise.
 */
@@ -114,7 +114,7 @@ bool TextFile::write( const std::string& content )
 //-----------------------------------------------------------------------------
 
 /**
-    @ingroup    ModernCppTests
+    @ingroup    NBLibraryFileHandling
     @brief      Opens a binary file.
     @param      filename The name of the file to open.
     @return     True if the file was opened successfully, false otherwise.
@@ -166,7 +166,7 @@ bool BinaryFile::open( const std::string& filename )
 
 /**
     @brief      Closes the binary file.
-    @ingroup    ModernCppTests
+    @ingroup    NBLibraryFileHandling
     @return     void
 */
 void BinaryFile::close()
@@ -181,7 +181,7 @@ void BinaryFile::close()
 
 /**
     @brief      Reads content from the binary file.
-    @ingroup    ModernCppTests
+    @ingroup    NBLibraryFileHandling
     @param      content The string to store the read content.
     @return     False, as binary files cannot be read as strings.
 */
@@ -193,7 +193,7 @@ bool BinaryFile::read( std::string& content )
 
 /**
     @brief      Writes content to the binary file.
-    @ingroup    ModernCppTests
+    @ingroup    NBLibraryFileHandling
     @param      content The string to write to the file.
     @return     False, as binary files cannot be written as strings.
 */
@@ -205,7 +205,7 @@ bool BinaryFile::write( const std::string& content )
 
 /**
     @brief      Reads content from the binary file.
-    @ingroup    ModernCppTests
+    @ingroup    NBLibraryFileHandling
     @param      buffer The buffer to store the read content.
     @param      size The size of the buffer.
     @return     True if reading was successful, false otherwise.
@@ -223,7 +223,7 @@ bool BinaryFile::read( char* buffer, std::size_t size )
 
 /**
     @brief      Writes content to the binary file.
-    @ingroup    ModernCppTests
+    @ingroup    NBLibraryFileHandling
     @param      buffer The buffer containing the data to write.
     @param      size The size of the data to write.
     @return     True if writing was successful, false otherwise.
