@@ -17,12 +17,18 @@ class DiskD64 : protected DiskCore
 {
   private:
     // constants for descriptor
-    static constexpr uint32_t DiskSize                        = 174336; // !< Disk size in bytes
-    static constexpr uint32_t TotalTracks                     = 35;     // !< Total number of tracks
-    static constexpr uint32_t TotalSectors                    = 681;    // !< Total number of sectors
-    static constexpr uint32_t BytesPerSector                  = 256;    // !< Number of bytes per sector
-    static constexpr uint16_t BAMTrack                        = 18;     // !< Track number of the BAM
-    static constexpr uint16_t BAMSector                       = 1;      // !< Sector number of the BAM
+    static constexpr uint16_t DiskSize                        = 174336; // !< Disk size in bytes
+    static constexpr uint16_t TotalTracks                     = 35;     // !< Total number of tracks
+    static constexpr uint16_t TotalSectors                    = 681;    // !< Total number of sectors
+    static constexpr uint16_t BytesPerSector                  = 256;    // !< Number of bytes per sector
+    static constexpr uint8_t  BAMTrack                        = 18;     // !< Track number of the BAM
+    static constexpr uint8_t  BAMSector                       = 0;      // !< Sector number of the BAM
+    static constexpr uint8_t  BAMEntities                     = 8;      // !< number of entities per BAM sector
+    static constexpr uint8_t  BAMEntitySize                   = 32;     // !< size of a BAM entity in bytes
+    static constexpr uint8_t  BAMLocationHeader               = 2;      // !< two bytes track and sector
+    static constexpr uint8_t  FileNameLength                  = 16;     // !< length of the file name
+    static constexpr uint8_t  FileNameStart                   = 5;      // !< start of the file name
+    static constexpr uint8_t  FileNamePadding                 = 0xA0;   // !< padding byte for file name
 
     static constexpr uint8_t  TrackSectorTable[ TotalTracks ] = {
         21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, // 1-17  (357)
@@ -118,6 +124,9 @@ class DiskD64 : protected DiskCore
 
     // Data members
     D64Info DiskContents; ///< Information and contents of disk
+
+    // internal functionality
+    size_t calcDiskPosition( uint32_t track, uint32_t sector );
 
   public:
     DiskD64();

@@ -9,7 +9,7 @@
             "request": "launch",
             "name": "Debug NBLibraryTests",
             "program": "${workspaceFolder}/build//NBLibrary/Debug/NBLibraryTests.exe",
-            "cwd": "${workspaceFolder}",
+            "cwd": "${workspaceFolder}/build//NBLibrary/Debug/",
             "preLaunchTask": "build"
         },
         {

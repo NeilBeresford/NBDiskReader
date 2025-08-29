@@ -11,7 +11,7 @@
 // Defines
 // ----------------------------------------------------------------------------
 
-#define TEST 0 //!< Set to 1 to run the test with a hardcoded D64 file, or 0 to use command line arguments
+#define TEST 1 //!< Set to 1 to run the test with a hardcoded D64 file, or 0 to use command line arguments
 
 //-----------------------------------------------------------------------------
 // Libraries
@@ -24,6 +24,8 @@
 #include <string>
 #include <cstdint>
 #include <format>
+
+#include "..\inc\Modules\DiskImages\cDiskD64.h "
 
 //-----------------------------------------------------------------------------
 //  External Functionality
@@ -267,7 +269,15 @@ int main( int argc, char** argv )
 
 #if TEST == 1
 
-    read_d64_directory( "test.d64" );
+    DiskD64 disk;
+
+    // Library read directory
+    disk.open( "elite128.d64" );
+    disk.readDirectory();
+    disk.close();
+
+    // prototype locally test
+    read_d64_directory( "elite128.d64" );
 
 #else
 

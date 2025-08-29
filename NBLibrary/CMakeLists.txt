@@ -34,4 +34,6 @@ else()
     message(WARNING "Doxygen not found, documentation will not be generated.")
 endif()
 
+file( COPY "Content/" DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/Debug )
+
 # End of the CMakeLists.txt file
