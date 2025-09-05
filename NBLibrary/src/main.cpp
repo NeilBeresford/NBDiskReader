@@ -25,7 +25,8 @@
 #include <cstdint>
 #include <format>
 
-#include "..\inc\Modules\DiskImages\cDiskD64.h "
+#include "..\inc\Modules\DiskImages\cDiskD64.h"
+#include "..\inc\Modules\DiskImages\cDiskD81.h"
 
 //-----------------------------------------------------------------------------
 //  External Functionality
@@ -270,14 +271,22 @@ int main( int argc, char** argv )
 #if TEST == 1
 
     DiskD64 disk;
-
+    DiskD81 disk81;
+    std::cout << "\nNBLibraryTests - Built " << __DATE__ << " " << __TIME__ << "\n\n";
+    std::cout << "Running in TEST mode with hardcoded D64 file.\n";
+    std::cout << "-----------------------------------------------\n";
     // Library read directory
     disk.open( "elite128.d64" );
     disk.readDirectory();
     disk.close();
-
+    std::cout << "-----------------------------------------------\n";
+    std::cout << "Running D81 read directory\n";
+    std::cout << "-----------------------------------------------\n";
     // prototype locally test
-    read_d64_directory( "elite128.d64" );
+    disk81.open( "test.d81" );
+    disk81.readDirectory();
+    disk81.close();
+    std::cout << "-----------------------------------------------\n";
 
 #else
 

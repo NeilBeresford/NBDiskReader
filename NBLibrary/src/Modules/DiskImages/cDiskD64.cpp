@@ -149,11 +149,11 @@ bool DiskD64::readDirectory()
         // 8 entries per sector, 32 bytes each, starting at offset 2 (30 bytes directory entry with 2 bytes padding)
         for ( uint32_t i = 0; i < BAMEntities; ++i )
         {
-            uint32_t entry_offset = i * BAMEntitySize + BAMLocationHeader;
-            uint8_t  file_type    = sector_data[ entry_offset ];
-            uint8_t  track_file   = sector_data[ entry_offset + 1 ];
-            uint8_t  sector_file  = sector_data[ entry_offset + 2 ];
-            uint16_t file_size    = ( sector_data[ entry_offset + 28 ] | ( sector_data[ entry_offset + 29 ] << 8 ) );
+            uint32_t entry_offset = i * BAMEntitySize;
+            uint8_t  file_type    = sector_data[ entry_offset + 2 ];
+            uint8_t  track_file   = sector_data[ entry_offset + 3 ];
+            uint8_t  sector_file  = sector_data[ entry_offset + 4 ];
+            uint16_t file_size    = ( sector_data[ entry_offset + 30 ] | ( sector_data[ entry_offset + 31 ] << 8 ) );
 
             if ( file_type == 0x00 )
                 continue; // Unused entry
