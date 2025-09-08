@@ -27,6 +27,10 @@
 
 #include "..\inc\Modules\DiskImages\cDiskD64.h"
 #include "..\inc\Modules\DiskImages\cDiskD81.h"
+#include "..\inc\Modules\DiskImages\cDiskD71.h"
+#include "..\inc\Modules\DiskImages\cDiskG64.h"
+#include "..\inc\Modules\DiskImages\cDiskT64.h"
+#include "..\inc\Modules\DiskImages\cDiskTAP.h"
 
 //-----------------------------------------------------------------------------
 //  External Functionality
@@ -286,6 +290,38 @@ int main( int argc, char** argv )
     disk81.open( "test.d81" );
     disk81.readDirectory();
     disk81.close();
+    std::cout << "-----------------------------------------------\n";
+    std::cout << "Running D71 read directory\n";
+    std::cout << "-----------------------------------------------\n";
+    // prototype locally test
+    DiskD71 disk71;
+    disk71.open( "test.d71" );
+    disk71.readDirectory();
+    disk71.close();
+    std::cout << "-----------------------------------------------\n";
+    std::cout << "Running G64 read directory\n";
+    std::cout << "-----------------------------------------------\n";
+    // prototype locally test
+    DiskG64 disk64;
+    disk64.open( "test.g64" );
+    disk64.readDirectory();
+    disk64.close();
+    std::cout << "-----------------------------------------------\n";
+    std::cout << "Running T64 read directory\n";
+    std::cout << "-----------------------------------------------\n";
+    // prototype locally test
+    DiskT64 diskT64;
+    diskT64.open( "test.t64" );
+    diskT64.readDirectory();
+    diskT64.close();
+    std::cout << "-----------------------------------------------\n";
+    std::cout << "Running TAP read directory\n";
+    std::cout << "-----------------------------------------------\n";
+    // prototype locally test
+    DiskTAP diskTAP;
+    diskTAP.open( "test.tap" );
+    diskTAP.readDirectory();
+    diskTAP.close();
     std::cout << "-----------------------------------------------\n";
 
 #else

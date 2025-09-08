@@ -20,6 +20,81 @@
 
 /**
     @ingroup    NBLibraryFileHandling
+    @brief      Default constructor for DiskG64 class.
+    @details    Initializes member variables to default values.
+*/
+DiskG64::DiskG64()
+{
+    // Initialize track sector table for 1541 disk (G64 uses same layout)
+    static const uint16_t TrackSectorTableInit[ 84 ] = {
+        7925, 7925, 7925, 7925, 7925, 7925, 7925, 7925, 7925, 7925, 7925, 7925, 7925, 7925, 7925, 7925, 7925, // 1-17
+        7375, 7375, 7375, 7375, 7375, 7375, 7375,                                                             // 18-24
+        6825, 6825, 6825, 6825, 6825, 6825,                                                                   // 25-30
+        6285, 6285, 6285, 6285, 6285,                                                                         // 31-35
+        6285, 6285, 6285, 6285, 6285,                                                                         // 36-40
+        6285, 6285, 6285, 6285, 6285,                                                                         // 41-45
+        6285, 6285, 6285, 6285, 6285,                                                                         // 46-50
+        6285, 6285, 6285, 6285, 6285,                                                                         // 51-55
+        6285, 6285, 6285, 6285, 6285,                                                                         // 56-60
+        6285, 6285, 6285, 6285, 6285,                                                                         // 61-65
+        6285, 6285, 6285, 6285, 6285,                                                                         // 66-70
+        6285, 6285, 6285, 6285, 6285,                                                                         // 71-75
+        6285, 6285, 6285, 6285, 6285,                                                                         // 76-80
+        6285, 6285, 6285, 6285,                                                                               // 81-84
+    };
+
+    uint32_t DiskSize = 0;
+    for ( const auto& size : TrackSectorTableInit )
+    {
+
+        DiskSize += size;
+        trackData.emplace_back( std::vector<uint8_t>( size, 0 ) );
+    }
+
+    DiskTitle                 = "NBDisk";
+    DiskName                  = "NBDisk.g64";
+    OutDiskName               = DiskName;
+    Descriptor.BytesPerSector = BytesPerSector;
+    Descriptor.TotalSectors   = TotalSectors;
+
+    // ResetDiskContents();
+}
+
+/**
+    @ingroup    NBLibraryFileHandling
+    @brief      Resets the contents of the disk image.
+    @details    Clears all data from the disk image and resets it to a blank state.
+*/
+// void DiskG64::ResetDiskContents()
+//{
+//     DiskContents = G64Info();
+// }
+
+/**
+    @ingroup    NBLibraryFileHandling
+    @brief      Opens the disk image file.
+    @param      filename  The name of the file to open.
+    @return     True if successful, false otherwise.
+*/
+bool DiskG64::open( const std::string& filename )
+{
+    close();
+    DiskImageStream.open( filename, std::ios::binary );
+    return DiskImageStream.is_open();
+}
+
+/**
+    @ingroup    NBLibraryFileHandling
+    @brief      Closes the disk image file.
+*/
+void DiskG64::close()
+{
+    if ( DiskImageStream.is_open() )
+        DiskImageStream.close();
+}
+
+/**
+    @ingroup    NBLibraryFileHandling
     @brief      Default constructor for DiskG64.
 */
 bool DiskG64::readDirectory()

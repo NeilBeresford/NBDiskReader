@@ -23,6 +23,14 @@
 class DiskG64 : protected DiskCore
 {
   public:
+    // G64-specific constants
+    static constexpr uint32_t DiskSize       = ( 84 * 7925 ); // 84 tracks * 7925 bytes (max) per track
+    static constexpr uint16_t TotalTracks    = 84;
+    static constexpr uint16_t TotalSectors   = 84;
+    static constexpr uint16_t BytesPerSector = 7925;
+    static constexpr uint8_t  BAMTrack       = 18; // G64 BAM is on track 18
+    static constexpr uint8_t  BAMSector      = 1;
+
     // G64 directory item status/type enums (mirroring D64)
     enum class G64ItemStatus : uint8_t
     {
